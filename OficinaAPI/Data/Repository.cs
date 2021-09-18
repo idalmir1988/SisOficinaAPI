@@ -55,5 +55,25 @@ namespace OficinaAPI.Data
 
             return query.FirstOrDefault();
         }
+
+        public OrdemServico[] GetOrdensServicos()
+        {
+            IQueryable<OrdemServico> query = _context.OrdensServicos;
+
+            query = query.Include(os => os.Cliente);
+
+            query = query.AsNoTracking().OrderBy(os => os.Id);
+
+            return query.ToArray();
+        }
+
+        public OrdemServico GetOrdemServicoById(int id)
+        {
+            IQueryable<OrdemServico> query = _context.OrdensServicos;            
+
+            query = query.AsNoTracking().Where(os => os.Id == id);
+
+            return query.FirstOrDefault();
+        }
     }
 }

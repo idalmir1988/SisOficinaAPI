@@ -14,7 +14,6 @@ namespace OficinaAPI.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private readonly AppDbContext _context;
         private readonly IRepository _repo;
 
         public ClienteController(IRepository repo)

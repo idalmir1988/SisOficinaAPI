@@ -15,5 +15,8 @@ namespace OficinaAPI.Data
 
         Cliente[] GetAllClientes();
         Cliente GetClienteById(int id);
+
+        OrdemServico[] GetOrdensServicos();
+        OrdemServico GetOrdemServicoById(int id);
     }
 }

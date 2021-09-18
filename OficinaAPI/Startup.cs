@@ -31,7 +31,10 @@ namespace OficinaAPI
             services.AddDbContext<AppDbContext>((context => context.UseSqlServer(Configuration.GetConnectionString("OficinaConnection"))));
             
             services.AddScoped<IRepository, Repository>();
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(
+                    opt => opt.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             services.AddSwaggerGen(c =>
             {
