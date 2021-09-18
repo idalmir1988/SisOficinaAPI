@@ -29,7 +29,10 @@ namespace OficinaAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>((context => context.UseSqlServer(Configuration.GetConnectionString("OficinaConnection"))));
+            
+            services.AddScoped<IRepository, Repository>();
             services.AddControllers();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OficinaAPI", Version = "v1" });

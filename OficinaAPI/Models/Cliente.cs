@@ -26,6 +26,14 @@ namespace OficinaAPI.Models
         [StringLength(8, ErrorMessage = "{0} excedeu o número de caracteres.")]
         public string Cep { get; set; }
 
+        [StringLength(100)]
+        [Required(ErrorMessage = "Campo {0} obrigatório")]
+        public string Cidade { get; set; }
+
+        [StringLength(2)]
+        [Required(ErrorMessage = "Campo {0} obrigatório")]
+        public string Uf { get; set; }
+
         [StringLength(80)]
         public string Bairro { get; set; }
 
