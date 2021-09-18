@@ -41,6 +41,7 @@ namespace OficinaAPI.Models
         public string Logradouro { get; set; }
         public int Numero { get; set; }
         [StringLength(100)]
-        public string Complemento { get; set; }        
+        public string Complemento { get; set; }
+        public virtual List<OrdemServico> OrdensServicos { get; set; }
     }
 }

@@ -14,6 +14,16 @@ namespace OficinaAPI.Data
 
         }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<OrdemServico>()
+                .HasOne(ordem => ordem.Cliente)
+                .WithMany(cliente => cliente.OrdensServicos)
+                .HasForeignKey(ordem => ordem.ClienteId);
+        }
+
+
         public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<OrdemServico> OrdensServicos { get; set; }
     }
 }
