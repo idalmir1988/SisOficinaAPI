@@ -75,6 +75,28 @@ namespace OficinaAPI.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("OficinaAPI.Models.ItemOrdemServico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("OrdemServicoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ServicoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrdemServicoId");
+
+                    b.HasIndex("ServicoId");
+
+                    b.ToTable("ItemOrdemServicos");
+                });
+
             modelBuilder.Entity("OficinaAPI.Models.OrdemServico", b =>
                 {
                     b.Property<int>("Id")
@@ -91,6 +113,9 @@ namespace OficinaAPI.Migrations
                     b.Property<DateTime?>("DataFinalizacao")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("TecnicoId")
+                        .HasColumnType("int");
+
                     b.Property<double>("ValorTotal")
                         .HasColumnType("float");
 
@@ -98,7 +123,73 @@ namespace OficinaAPI.Migrations
 
                     b.HasIndex("ClienteId");
 
+                    b.HasIndex("TecnicoId");
+
                     b.ToTable("OrdensServicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.Servico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<double>("Valor")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.Tecnico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tecnicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.ItemOrdemServico", b =>
+                {
+                    b.HasOne("OficinaAPI.Models.OrdemServico", "OrdemServico")
+                        .WithMany("ItemOrdensServicos")
+                        .HasForeignKey("OrdemServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("OficinaAPI.Models.Servico", "Servico")
+                        .WithMany("ItemOrdensServicos")
+                        .HasForeignKey("ServicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrdemServico");
+
+                    b.Navigation("Servico");
                 });
 
             modelBuilder.Entity("OficinaAPI.Models.OrdemServico", b =>
@@ -109,12 +200,35 @@ namespace OficinaAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("OficinaAPI.Models.Tecnico", "Tecnico")
+                        .WithMany("OrdemServicos")
+                        .HasForeignKey("TecnicoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Cliente");
+
+                    b.Navigation("Tecnico");
                 });
 
             modelBuilder.Entity("OficinaAPI.Models.Cliente", b =>
                 {
                     b.Navigation("OrdensServicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.OrdemServico", b =>
+                {
+                    b.Navigation("ItemOrdensServicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.Servico", b =>
+                {
+                    b.Navigation("ItemOrdensServicos");
+                });
+
+            modelBuilder.Entity("OficinaAPI.Models.Tecnico", b =>
+                {
+                    b.Navigation("OrdemServicos");
                 });
 #pragma warning restore 612, 618
         }

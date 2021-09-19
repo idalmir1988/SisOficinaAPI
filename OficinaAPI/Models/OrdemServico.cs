@@ -15,6 +15,9 @@ namespace OficinaAPI.Models
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public DateTime? DataFinalizacao { get; set; }
         public virtual Cliente Cliente { get; set; }
-        public int ClienteId { get; set; }
+        public int ClienteId { get; set; }        
+        public virtual Tecnico Tecnico { get; set; }
+        public int TecnicoId { get; set; }
+        public virtual List<ItemOrdemServico> ItemOrdensServicos { get; set; }
     }
 }
