@@ -10,7 +10,7 @@ namespace OficinaAPI.Models
     {
         [Key]
         public int Id { get; set; }        
-        [Required(ErrorMessage = "O campo {0} é obrigatório.")]
+        [Required(ErrorMessage = "O campo {0} é obrigatório..")]
         public string Nome { get; set; }
         public DateTime DataCadastro { get; set; } = DateTime.Now;
         public bool Ativo { get; set; } = true;
