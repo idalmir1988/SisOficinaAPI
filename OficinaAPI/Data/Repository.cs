@@ -75,5 +75,19 @@ namespace OficinaAPI.Data
 
             return query.FirstOrDefault();
         }
+
+        public Tecnico[] GetAllTecnicos()
+        {
+            IQueryable<Tecnico> query = _context.Tecnicos;
+            query = query.AsNoTracking().OrderBy(tec => tec.Id);
+            return query.ToArray();
+        }
+
+        public Tecnico GetTecnicoById(int id)
+        {
+            IQueryable<Tecnico> query = _context.Tecnicos;
+            query = query.AsNoTracking().Include(os => os.OrdemServicos);
+            return query.FirstOrDefault();
+        }
     }
 }

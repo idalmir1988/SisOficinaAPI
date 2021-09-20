@@ -18,5 +18,8 @@ namespace OficinaAPI.Data
 
         OrdemServico[] GetOrdensServicos();
         OrdemServico GetOrdemServicoById(int id);
+
+        Tecnico[] GetAllTecnicos();
+        Tecnico GetTecnicoById(int id);
     }
 }
